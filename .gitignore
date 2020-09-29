@@ -8,10 +8,11 @@ db.sqlite3
 /log
 __pycache__
 debug.log
-local_settings.py
+#local_settings.py
 dumped_data/
 media/
 test/
 local/
 .DS_Store
 credentials/
+venv

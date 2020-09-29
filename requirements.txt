@@ -1,6 +1,16 @@
-django == 2.2
-django-storages == 1.7.1
+django == 2.2.12
+django-storages == 1.8
 boto3 >= 1.9.135, < 2.0.0
-requests == 2.21.0
-psycopg2-binary == 2.8.2
-django-admin-tools == 0.8.1
+requests == 2.22.0
+psycopg2-binary == 2.8.4
+django-admin-tools == 0.9.0
+djangorestframework == 3.11.0
+drf-nested-routers == 0.91
+Pillow == 6.2.1
+django-map-widgets == 0.2.2
+django-redis==4.12.1
+django-model-utils==3.1.2
+celery == 4.3.0
+pycurl == 7.43.0.5
+django-cors-headers == 3.4.0
+django-filter == 2.2.0
