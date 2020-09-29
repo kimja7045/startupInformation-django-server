@@ -12,5 +12,5 @@ urlpatterns = [
     path('ping', ping_view),
     path('admin/', admin.site.urls),
     path('admin_tools/', include('admin_tools.urls')),
-    path('', include('service.urls')),
+    path('api/', include('service.urls')),
 ]

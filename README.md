@@ -17,7 +17,7 @@ python -m venvvenv
 
 # 가상환경을 활성화해줍니다.
 . venv/bin/activate         - mac
-.venv\Scripts\activate     - window
+. venv\Scripts\activate     - window
 
 # 프로젝트에 사용된 모든 패키지를 간편하게 설치하기 위해 다음 명령어를 입력합니다. 
 pip install -r requirements.txt
