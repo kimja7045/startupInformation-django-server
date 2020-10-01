@@ -13,7 +13,6 @@ import service_settings
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -24,7 +23,6 @@ SECRET_KEY = 'eb(m!l#x5+iyn0y9(h+l^0-j=rit*uy%a4a03milf045y31_am'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -85,7 +83,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
-
 # Database
 
 DATABASES = {
@@ -94,7 +91,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 
@@ -113,7 +109,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 LANGUAGE_CODE = 'ko'
 
@@ -124,7 +119,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = False
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
@@ -149,14 +143,11 @@ CORS_ALLOW_METHODS = (
 )
 
 CORS_ORIGIN_WHITELIST = (
-    # 'http://localhost',    #React 도메인
-    'http://localhost:3000',
-    'http://localhost:8000',
-    'http://15.164.48.222',
-    'http://15.164.48.222:8000'
-    # 'www.m-ssi.com:8000',
+    'http://localhost:3000',  # React local port
+    'http://localhost:8000',  # Django local post
+    'http://15.164.48.222',   # aws domain address(80 port)
+    'http://15.164.48.222:8000'  # aws address port
 )
-
 
 CORS_ALLOW_CREDENTIALS = True
 # CORS_ORIGIN_ALLOW_ALL = True
