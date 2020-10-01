@@ -142,11 +142,11 @@ CORS_ALLOW_METHODS = (
     'PUT',
 )
 
-CORS_ALLOWED_ORIGINS = (
+CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',  # React local port
     'http://localhost:8000',  # Django local post
     'http://15.164.48.222',   # aws domain address(80 port)
-    'http://15.164.48.222:8000'  # aws address port
+    'http://15.164.48.222:8000',  # aws address port
     'http://www.m-ssi.com',
     'http://www.m-ssi.com:8000',
 )
