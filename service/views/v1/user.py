@@ -26,7 +26,6 @@ class UserSignUpView(views.APIView):
     @form_validation(UserAuthSerializer)
     def post(self, request, serializer):
         user = serializer.signup()
-        # user.coord = Point(request.data['longitude'], request.data['latitude'])
         user.save()
         login(request, user)
 
@@ -38,8 +37,6 @@ class UserSignInView(views.View):
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
-
-    # @form_validation(UserAuthSerializer)
 
     def post(self, request):
 

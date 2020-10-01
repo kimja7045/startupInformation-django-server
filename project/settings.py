@@ -149,12 +149,12 @@ CORS_ALLOW_METHODS = (
 )
 
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost',    #React 도메인
+    # 'http://localhost',    #React 도메인
     'http://localhost:3000',
-    'http://127.0.0.1:3000',
-    'http://localhost:8000',    #Django 도메인
+    'http://localhost:8000',
     'http://15.164.48.222',
-    'http://15.164.48.222:80'
+    'http://15.164.48.222:8000'
+    # 'www.m-ssi.com:8000',
 )
 
 
