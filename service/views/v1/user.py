@@ -59,7 +59,8 @@ class UserSignInView(views.View):
                 'msg': '올바른 비밀번호를 입력해주세요'
             })
         login(request, user)
-        return JsonResponse({'code': 'OK'})
+        serializer = UserProfileSerializer(instance=request.user)
+        return JsonResponse(serializer.data)
 
 
 class UserProfileView(views.APIView):
