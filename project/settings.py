@@ -145,8 +145,8 @@ CORS_ALLOW_METHODS = (
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',  # React local port
     'http://localhost:8000',  # Django local post
-    'http://15.164.48.222',   # aws domain address(80 port)
-    'http://15.164.48.222:8000',  # aws address port
+    # 'http://15.164.48.222',   # aws domain address(80 port)
+    # 'http://15.164.48.222:8000',  # aws address port
     'http://3.34.124.229',
     'http://3.34.124.229:8000',
     'http://www.m-ssi.com',
