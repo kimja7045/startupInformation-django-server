@@ -1,17 +1,21 @@
-from service.models import *
+from service.models import Post
 from rest_framework import serializers
+from service.serializers import UserProfileSerializer
 
 
-class PostSerializer(serializers.Serializer):
+class PostSerializer(serializers.ModelSerializer):
     has_favorite = serializers.SerializerMethodField(read_only=True)
+    user = UserProfileSerializer(read_only=True)
+    is_mine = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Post
         fields = (
             'id',
+            'user',
             'title',
             'content',
-            'favorite_count'
+            'favorite_count',
             'has_favorite',
             'is_mine',
             'created_at',
@@ -22,5 +26,5 @@ class PostSerializer(serializers.Serializer):
             return False
         return obj.user_id == self.context['request'].user.id
 
-    def get_has_liked(self, obj):
+    def get_has_favorite(self, obj):
         return self.context['request'].user.id in [favorite_user for favorite_user in obj.favorite_users.all()]
