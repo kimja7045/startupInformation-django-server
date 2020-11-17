@@ -41,7 +41,7 @@ class Post(models.Model):
         null=True,
         blank=True,
     )
-    created_at = models.DateField(
+    created_at = models.DateTimeField(
         verbose_name='작성일',
         auto_now=True
     )
