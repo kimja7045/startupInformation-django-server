@@ -1,5 +1,5 @@
-from service.models import Post
 from rest_framework import serializers
+from service.models import Post, Review
 from service.serializers import UserProfileSerializer
 
 
@@ -14,6 +14,7 @@ class PostSerializer(serializers.ModelSerializer):
             'id',
             'user',
             'title',
+            'image',
             'content',
             'favorite_count',
             'has_favorite',
@@ -28,3 +29,16 @@ class PostSerializer(serializers.ModelSerializer):
 
     def get_has_favorite(self, obj):
         return self.context['request'].user.id in [favorite_user for favorite_user in obj.favorite_users.all()]
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    user = UserProfileSerializer(read_only=True)
+
+    class Meta:
+        model = Review
+        fields = (
+            'id',
+            'user',
+            'content',
+            'created_at',
+        )

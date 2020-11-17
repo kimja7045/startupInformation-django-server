@@ -54,4 +54,5 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'email',
             'nickname',
             'phone_number',
+            'image',
         )
