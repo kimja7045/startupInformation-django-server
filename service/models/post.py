@@ -31,10 +31,6 @@ class Post(models.Model):
         verbose_name='찜(즐겨찾기)한 사람들',
         blank=True,
     )
-    favorite_count = models.PositiveIntegerField(
-        verbose_name='즐겨찾기 수',
-        default=0
-    )
     image = models.ImageField(
         upload_to='post_images',
         verbose_name='이미지',

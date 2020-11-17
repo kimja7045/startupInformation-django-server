@@ -7,6 +7,7 @@ class PostSerializer(serializers.ModelSerializer):
     has_favorite = serializers.SerializerMethodField(read_only=True)
     user = UserProfileSerializer(read_only=True)
     is_mine = serializers.SerializerMethodField(read_only=True)
+    favorite_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
@@ -21,6 +22,9 @@ class PostSerializer(serializers.ModelSerializer):
             'is_mine',
             'created_at',
         )
+
+    def get_favorite_count(self, obj):
+        return obj.favorite_users.count()
 
     def get_is_mine(self, obj):
         if not self.context['request'].user.is_authenticated:
