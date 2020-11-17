@@ -1,7 +1,9 @@
-from rest_framework import viewsets, pagination
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import viewsets, pagination, filters
 from service.authentication import BaseSessionAuthentication
 from service.models import Post, Review
 from service.serializers import PostSerializer, ReviewSerializer
+from service.views.v1.filter import PostFilter
 
 
 class ContentPagination(pagination.PageNumberPagination):
@@ -16,6 +18,8 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     pagination_class = ContentPagination
     serializer_class = PostSerializer
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_class = PostFilter
 
     def get_queryset(self):
         return super().get_queryset().order_by('-created_at').distinct()
