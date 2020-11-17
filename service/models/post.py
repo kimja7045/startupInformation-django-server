@@ -47,7 +47,7 @@ class Post(models.Model):
     )
 
     def __str__(self):
-        return f'{self.user}/{self.created_at}'
+        return f'{self.user}/{self.title}'
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         if self.image and not self.image.name.startswith('resized'):

@@ -36,6 +36,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
         BaseSessionAuthentication,
     )
     serializer_class = ReviewSerializer
+    pagination_class = ContentPagination
 
     def get_queryset(self):
         return super().get_queryset().filter(post=self.kwargs['post_pk']).order_by('-created_at')
