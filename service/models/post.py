@@ -9,7 +9,7 @@ from service.utils import image as image_utils
 
 class Post(models.Model):
     class Meta:
-        verbose_name = '창업정보'
+        verbose_name = '창업정보 게시물'
         verbose_name_plural = verbose_name
 
     user = models.ForeignKey(
@@ -58,7 +58,7 @@ class Post(models.Model):
 
 class Review(models.Model):
     class Meta:
-        verbose_name = '댓글'
+        verbose_name = '댓글(창업정보 게시물의 댓글)'
         verbose_name_plural = verbose_name
 
     user = models.ForeignKey(
