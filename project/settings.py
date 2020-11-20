@@ -127,8 +127,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 DEFAULT_FILE_STORAGE = 'project.storages.MediaStorage'
-MEDIAFILES_LOCATION = service_settings.SERVICE_NAME
-# MEDIAFILES_LOCATION = 'media'
+# MEDIAFILES_LOCATION = service_settings.SERVICE_NAME
+MEDIAFILES_LOCATION = 'media'
 AWS_STORAGE_BUCKET_NAME = 'service'
 AWS_QUERYSTRING_AUTH = False
 
