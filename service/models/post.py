@@ -76,7 +76,7 @@ class Review(models.Model):
     content = models.TextField(
         verbose_name='내용',
     )
-    created_at = models.DateField(
+    created_at = models.DateTimeField(
         verbose_name='작성일',
         auto_now=True
     )
