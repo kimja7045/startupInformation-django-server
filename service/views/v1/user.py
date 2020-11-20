@@ -23,12 +23,33 @@ class UserSignUpView(views.APIView):
         BaseSessionAuthentication,
     )
 
-    @form_validation(UserAuthSerializer)
-    def post(self, request, serializer):
-        user = serializer.signup()
-        user.save()
-        login(request, user)
+    def post(self, request):
+        data = json.loads(request.body)
 
+        if User.objects.filter(email=data['email']).exists():
+            return JsonResponse(data={
+                'code': 'exists',
+                'msg': '이미 존재하는 이메일입니다.'
+            }, status=400)
+        elif User.objects.filter(phone_number=data['phone_number']).exists():
+            return JsonResponse(data={
+                'code': 'exists',
+                'msg': '이미 사용 중인 전화번호입니다.'
+            }, status=400)
+        elif User.objects.filter(nickname=data['nickname']).exists():
+            return JsonResponse(data={
+                'code': 'exists',
+                'msg': '이미 사용 중인 닉네임입니다.\n다른 닉네임을 입력해주세요.'
+            }, status=400)
+
+        user = User.objects.create(
+            username=User.generate_username(),
+            phone_number=data['phone_number'], nickname=data['nickname'], email=data['email'],
+        )
+        user.set_password(data['password'])
+        user.save()
+
+        login(request, user)
         return Response({'code': 'OK'})
 
 
@@ -52,12 +73,12 @@ class UserSignInView(views.View):
             return JsonResponse(data={
                 'code': 'NotLogin',
                 'msg': '사용자를 찾을 수 없습니다'
-            })
+            }, status=400)
         elif not user.check_password(data['password']):
             return JsonResponse(data={
                 'code': 'NotLogin',
                 'msg': '올바른 비밀번호를 입력해주세요'
-            })
+            }, status=400)
         login(request, user)
         serializer = UserProfileSerializer(instance=request.user)
         return JsonResponse(serializer.data)
