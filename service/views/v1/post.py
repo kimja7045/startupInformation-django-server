@@ -62,6 +62,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
         return super().get_queryset().filter(post=self.kwargs['post_pk']).order_by('-created_at')
 
     def perform_create(self, serializer):
+        # serializer.save(user=self.request.user, post_id=self.kwargs['post_pk'])
         serializer.save(user=self.request.user, post_id=self.kwargs['post_pk'])
 
     def perform_update(self, serializer):
