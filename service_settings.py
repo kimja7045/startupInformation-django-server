@@ -1,1 +1,1 @@
-SERVICE_NAME = 'service'
+SERVICE_NAME = 'software-service'

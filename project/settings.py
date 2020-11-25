@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -122,17 +123,25 @@ USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
-
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-DEFAULT_FILE_STORAGE = 'project.storages.MediaStorage'
+# DEFAULT_FILE_STORAGE = 'project.storages.MediaStorage'
 # MEDIAFILES_LOCATION = service_settings.SERVICE_NAME
 MEDIAFILES_LOCATION = 'media'
-AWS_STORAGE_BUCKET_NAME = 'service'
+AWS_STORAGE_BUCKET_NAME = 'software-service'
 AWS_QUERYSTRING_AUTH = False
 
+AWS_REGION = 'ap-northeast-2'
+AWS_ACCESS_KEY_ID = 'AKIA24LPZ4SXQ2C22NH5'
+AWS_SECRET_ACCESS_KEY = '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'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AUTH_USER_MODEL = f'service.User'
+
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME,AWS_REGION)
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
 
 CORS_ALLOW_METHODS = (
     'DELETE',

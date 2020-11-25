@@ -15,13 +15,9 @@ INTERNAL_IPS = ['127.0.0.1']
 
 # MEDIA_URL = 'http://127.0.0.1:8000/media/'
 # http://3.34.124.229/ new server address
+# DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 # MEDIA_URL = 'http://3.34.124.229:8000/media/'
-MEDIA_ROOT = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'media/')
-MEDIAFILES_LOCATION = 'media'
-DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+# MEDIA_ROOT = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'media/')
 
-STATIC_URL = '/static/'
+# MEDIAFILES_LOCATION = 'media'
 
-AWS_REGION = 'ap-northeast-2'
-AWS_ACCESS_KEY_ID = 'AKIARGVEPV34MU3UH3NE'
-AWS_SECRET_ACCESS_KEY = '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'
