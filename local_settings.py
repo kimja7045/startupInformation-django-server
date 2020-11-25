@@ -21,3 +21,7 @@ MEDIAFILES_LOCATION = 'media'
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 STATIC_URL = '/static/'
+
+AWS_REGION = 'ap-northeast-2'
+AWS_ACCESS_KEY_ID = 'AKIARGVEPV34MU3UH3NE'
+AWS_SECRET_ACCESS_KEY = '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'
