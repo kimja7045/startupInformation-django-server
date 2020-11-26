@@ -32,7 +32,7 @@ class PostSerializer(serializers.ModelSerializer):
         return obj.user_id == self.context['request'].user.id
 
     def get_has_favorite(self, obj):
-        return self.context['request'].user.id in [favorite_user for favorite_user in obj.favorite_users.all()]
+        return self.context['request'].user.id in [favorite_user.id for favorite_user in obj.favorite_users.all()]
 
 
 class ReviewSerializer(serializers.ModelSerializer):
