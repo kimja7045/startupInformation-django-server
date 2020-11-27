@@ -12,3 +12,9 @@ class PostAdmin(admin.ModelAdmin):
 class PostAdmin(admin.ModelAdmin):
     list_display = ('user', 'post', 'content', 'created_at')
     search_fields = ('content',)
+
+
+@admin.register(PublicPost)
+class PostAdmin(admin.ModelAdmin):
+    list_display = ('title', 'url', 'created_at')
+    search_fields = ('title', 'url', 'created_at')

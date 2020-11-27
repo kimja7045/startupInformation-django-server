@@ -83,3 +83,25 @@ class Review(models.Model):
 
     def __str__(self):
         return f'{self.user}/{self.created_at}'
+
+
+class PublicPost(models.Model):
+    class Meta:
+        verbose_name = '창업넷 공지사항(공공데이터)'
+        verbose_name_plural = verbose_name
+
+    title = models.CharField(
+        verbose_name='제목',
+        max_length=256,
+    )
+    # view_count = models.CharField(
+    #     verbose_name='조회수',
+    #     max_length=16,
+    # )
+    url = models.URLField(
+        verbose_name='링크',
+    )
+    created_at = models.CharField(
+        verbose_name='생성일',
+        max_length=16,
+    )

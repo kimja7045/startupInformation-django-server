@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from service.models import Post, Review
+from service.models import Post, Review, PublicPost
 from service.serializers import UserProfileSerializer
 
 
@@ -44,5 +44,17 @@ class ReviewSerializer(serializers.ModelSerializer):
             'id',
             'user',
             'content',
+            'created_at',
+        )
+
+
+class PublicPostSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = PublicPost
+        fields = (
+            'id',
+            'title',
+            'url',
             'created_at',
         )
