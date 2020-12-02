@@ -126,22 +126,7 @@ USE_TZ = False
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-# DEFAULT_FILE_STORAGE = 'project.storages.MediaStorage'
 # MEDIAFILES_LOCATION = service_settings.SERVICE_NAME
-MEDIAFILES_LOCATION = 'media'
-AWS_STORAGE_BUCKET_NAME = 'software-service'
-AWS_QUERYSTRING_AUTH = False
-
-AWS_REGION = 'ap-northeast-2'
-AWS_ACCESS_KEY_ID = 'AKIA24LPZ4SXQ2C22NH5'
-AWS_SECRET_ACCESS_KEY = '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'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AUTH_USER_MODEL = f'service.User'
-
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME,AWS_REGION)
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-}
 
 CORS_ALLOW_METHODS = (
     'DELETE',
@@ -155,12 +140,12 @@ CORS_ALLOW_METHODS = (
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',  # React local port
     'http://localhost:8000',  # Django local post
-    'http://3.34.124.229',
-    'http://3.34.124.229:8000',
+    'http://13.125.8.96',
+    'http://13.125.8.96:8000',
     # 'http://192.168.35.18',
     # 'http://192.168.35.18:8000',
-    'http://www.m-ssi.com',
-    'http://www.m-ssi.com:8000',
+    'http://www.man-ssi.com',
+    'http://www.man-ssi.com:8000',
 )
 
 CORS_ALLOW_CREDENTIALS = True

@@ -4,7 +4,7 @@ from service.models import *
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('user', 'title', 'content', 'created_at')
+    list_display = ('user', 'title', 'content', 'image', 'created_at')
     search_fields = ('title', 'content')
 
 

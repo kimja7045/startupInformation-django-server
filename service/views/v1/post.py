@@ -20,13 +20,13 @@ class ContentPagination(pagination.PageNumberPagination):
 
 class PostViewSet(viewsets.ModelViewSet):
     authentication_classes = (
-        BaseSessionAuthentication,
+        BaseSessionAuthentication,        # 세션 유무 확인
     )
-    queryset = Post.objects.all()
-    pagination_class = ContentPagination
-    serializer_class = PostSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
-    filter_class = PostFilter
+    queryset = Post.objects.all()         # 창업정보(게시물) 데이터 리스트 저장
+    pagination_class = ContentPagination  # 페이지네이션 설정
+    serializer_class = PostSerializer     # 시리얼라이저(클라이언트에서 필요한 창업정보 데이터 리스트) 설정
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]  # 필터를 위한 라이브러리 설정
+    filter_class = PostFilter             # 창업정보 제목, 작성자, 찜(즐겨찾기) 필터 알고리즘이 만들어진 소스 설정
 
     def get_queryset(self):
         return super().get_queryset().order_by('-created_at').distinct()
@@ -34,7 +34,7 @@ class PostViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-    def perform_update(self, serializer):
+    def perform_update(self, serializer):   # 창업정보 업데이트 (제어 클래스 부분)
         serializer.save()
 
     def perform_destroy(self, instance):
@@ -85,10 +85,10 @@ class PublicPostViewSet(viewsets.ModelViewSet):
     serializer_class = PublicPostSerializer
 
     def get_queryset(self):
-        return super().get_queryset().order_by('id').distinct()
+        return super().get_queryset().order_by('-id').distinct()
 
 
-# 공공데이터(창업넷 공지사항 최신 100개) api
+# 공공데이터(창업넷 공지사항 최신 100개) 가져오는 리스트 api
 class OpenPostView(APIView):
     def get(self, request):
         # numOfRows: 페이지당 게시물 목록 수
@@ -103,19 +103,18 @@ class OpenPostView(APIView):
                            '&pageSize=100'
                            '&pageNo=1').content
 
-        xmlObject = xmltodict.parse(req)
-        allData = xmlObject['response']['body']['items']['item']
-        # print('\n\n\n')
+        xmlObject = xmltodict.parse(req)   # xml인 데이터 형식을 json 형태로 변환
+        allData = xmlObject['response']['body']['items']['item']  # 공지사항 리스트 데이터(100개) 저장
+        # print(allData)
         # print(allData[0]['title'])
         # print(allData[0]['detailurl'])
         # print(allData[0]['insertdate'])
 
         for notice_post in allData:
-            PublicPost.objects.create(
-                title=notice_post['title'],
+            PublicPost.objects.create(  # 필요한 데이터만 만들어둔 창업정보 게시물 모델(PublicPost)에
+                title=notice_post['title'],  # 저장
                 url=notice_post['detailurl'],
                 created_at=notice_post['insertdate'],
             )
-        # print(allData)
 
-        return Response({'response': 'ok'})
+        return Response({'response': 'ok'})   # 에러 없이 수행됐을 시의 결과 출력
