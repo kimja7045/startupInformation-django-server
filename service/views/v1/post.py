@@ -28,26 +28,26 @@ class PostViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]  # 필터를 위한 라이브러리 설정
     filter_class = PostFilter             # 창업정보 제목, 작성자, 찜(즐겨찾기) 필터 알고리즘이 만들어진 소스 설정
 
-    def get_queryset(self):
-        return super().get_queryset().order_by('-created_at').distinct()
+    def get_queryset(self):               # 창업정보(게시물) 데이터 리스트 조회
+        return super().get_queryset().order_by('-created_at').distinct()  # 최신 날짜 순으로 정렬하여 클라이언트 호출 시 출력
 
-    def perform_create(self, serializer):
+    def perform_create(self, serializer):  # 창업정보 게시물 생성
         serializer.save(user=self.request.user)
 
     def perform_update(self, serializer):   # 창업정보 업데이트 (제어 클래스 부분)
         serializer.save()
 
-    def perform_destroy(self, instance):
+    def perform_destroy(self, instance):   # 창업정보 게시물 삭제
         instance.delete()
 
-    @action(methods=['get'], detail=True)
+    @action(methods=['get'], detail=True)   # 찜(즐겨찾기) 추가
     def favorite(self, request, pk=None):
         post = self.get_object()
         post.favorite_users.add(request.user)
         post.save()
         return Response({'code': 'OK'})
 
-    @action(methods=['get'], detail=True)
+    @action(methods=['get'], detail=True)   # 찜(즐겨찾기) 해제
     def unfavorite(self, request, pk=None):
         post = self.get_object()
         post.favorite_users.remove(request.user)
@@ -55,25 +55,25 @@ class PostViewSet(viewsets.ModelViewSet):
         return Response({'code': 'OK'})
 
 
-class ReviewViewSet(viewsets.ModelViewSet):
-    queryset = Review.objects.select_related('user')
-    authentication_classes = (
+class ReviewViewSet(viewsets.ModelViewSet):  # 댓글(리뷰)
+    queryset = Review.objects.select_related('user')  # 댓글 데이터 리스트 저장
+    authentication_classes = (                        # 세션 유무 확인
         BaseSessionAuthentication,
     )
-    serializer_class = ReviewSerializer
-    pagination_class = ContentPagination
+    serializer_class = ReviewSerializer               # 시리얼라이저(클라이언트에서 필요한 창업정보 데이터 리스트) 설정
+    pagination_class = ContentPagination              # 페이지네이션 설정
 
-    def get_queryset(self):
+    def get_queryset(self):                           # 댓글 데이터 리스트 조회
         return super().get_queryset().filter(post=self.kwargs['post_pk']).order_by('-created_at')
+        # 특정 창업정보 게시물 인덱스값으로 특정 창업정보 게시물에 해당하는 댓글 리스트만 필터로 불러오며, 최신순으로 정렬하여 출력
 
-    def perform_create(self, serializer):
-        # serializer.save(user=self.request.user, post_id=self.kwargs['post_pk'])
+    def perform_create(self, serializer):             # 댓글 생성
         serializer.save(user=self.request.user, post_id=self.kwargs['post_pk'])
 
-    def perform_update(self, serializer):
+    def perform_update(self, serializer):             # 댓글 업데이트
         serializer.save()
 
-    def perform_destroy(self, instance):
+    def perform_destroy(self, instance):              # 댓글 삭제
         instance.delete()
 
 
