@@ -95,7 +95,7 @@ class UserProfileView(views.APIView):
     def get(self, request):
         serializer = UserProfileSerializer(instance=request.user)
 
-        request.session.set_expiry(864000)
+        request.session.set_expiry(86400)
         return Response(serializer.data)
 
     @form_validation(UserProfileSerializer)
