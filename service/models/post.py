@@ -78,7 +78,7 @@ class Review(models.Model):
     )
     created_at = models.DateTimeField(
         verbose_name='작성일',
-        auto_now=True
+        auto_now_add=True
     )
 
     def __str__(self):
