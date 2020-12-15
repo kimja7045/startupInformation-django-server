@@ -1,8 +1,8 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, pagination, filters
 from service.authentication import BaseSessionAuthentication
-from service.models import Post, Review, PublicPost
-from service.serializers import PostSerializer, ReviewSerializer, PublicPostSerializer
+from service.models import Post, Review, PublicPost, StartUpPlace
+from service.serializers import PostSerializer, ReviewSerializer, PublicPostSerializer, StartUpPlaceSerializer
 from service.views.v1.filter import PostFilter
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -78,14 +78,19 @@ class ReviewViewSet(viewsets.ModelViewSet):  # 댓글(리뷰)
 
 
 class PublicPostViewSet(viewsets.ModelViewSet):
-    # authentication_classes = (
-    #     BaseSessionAuthentication,
-    # )
     queryset = PublicPost.objects.all()
     serializer_class = PublicPostSerializer
 
     def get_queryset(self):
         return super().get_queryset().order_by('-id').distinct()
+
+
+class StartUpPlaceViewSet(viewsets.ModelViewSet):
+    queryset = StartUpPlace.objects.all()
+    serializer_class = StartUpPlaceSerializer
+
+    def get_queryset(self):
+        return super().get_queryset().order_by('id').distinct()
 
 
 # 공공데이터(창업넷 공지사항 최신 100개) 가져오는 리스트 api
@@ -115,6 +120,34 @@ class OpenPostView(APIView):
                 title=notice_post['title'],  # 저장
                 url=notice_post['detailurl'],
                 created_at=notice_post['insertdate'],
+            )
+
+        return Response({'response': 'ok'})   # 에러 없이 수행됐을 시의 결과 출력
+
+
+# 공공데이터(창업지원센터) 가져오는 리스트 api
+class OpenPlaceView(APIView):
+    def get(self, request):
+        # area : 지역 ( ex) 부산 )
+
+        req = requests.get('http://apis.data.go.kr/B552735/workspaceErumService/getAreaCenterList?'
+                           'serviceKey=UO7tvHBrpODqQ%2BFLE4u3%2FRWyekRHkB5tnV%2B3OS2FaYJeT8xLTF2d5Qa7xH6y32xBp9BJR5eex%2FOPNb0s0zpfeg%3D%3D'
+                           '&area=제주').content
+
+        xmlObject = xmltodict.parse(req)   # xml인 데이터 형식을 json 형태로 변환
+        allData = xmlObject['items']['item']  # 공지사항 리스트 데이터(100개) 저장
+        # print(allData)
+        # print(allData[0]['title'])
+
+        for startup_place in allData:
+            StartUpPlace.objects.create(  # 필요한 데이터만 만들어둔 창업정보 장소 모델(StartUpPlace)에
+                name=startup_place['cnterNm'],  # 저장
+                enterprise=startup_place['cnterTyNm'],
+                address=startup_place['adr'],
+                tel=startup_place['telnm'],
+                latitude=startup_place['la'],
+                longitude=startup_place['lo'],
+                region='제주'
             )
 
         return Response({'response': 'ok'})   # 에러 없이 수행됐을 시의 결과 출력

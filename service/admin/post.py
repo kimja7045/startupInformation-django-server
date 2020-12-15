@@ -15,6 +15,12 @@ class PostAdmin(admin.ModelAdmin):
 
 
 @admin.register(PublicPost)
-class PostAdmin(admin.ModelAdmin):
+class PublicPostAdmin(admin.ModelAdmin):
     list_display = ('title', 'url', 'created_at')
     search_fields = ('title', 'url', 'created_at')
+
+
+@admin.register(StartUpPlace)
+class StartUpPlaceAdmin(admin.ModelAdmin):
+    list_display = ('name', 'enterprise', 'tel', 'region')
+    search_fields = ('name', 'enterprise', 'region', 'tel')

@@ -142,8 +142,8 @@ CORS_ORIGIN_WHITELIST = (
     'http://localhost:8000',  # Django local post
     'http://54.180.146.83',
     'http://54.180.146.83:8000',
-    'http://172.20.10.12',
-    'http://172.20.10.12:8000',
+    'http://172.20.10.8',
+    'http://172.20.10.8:8000',
     'http://www.man-ssi.com',
     'http://www.man-ssi.com:8000',
 )

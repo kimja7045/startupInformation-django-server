@@ -94,14 +94,46 @@ class PublicPost(models.Model):
         verbose_name='제목',
         max_length=256,
     )
-    # view_count = models.CharField(
-    #     verbose_name='조회수',
-    #     max_length=16,
-    # )
     url = models.URLField(
         verbose_name='링크',
     )
     created_at = models.CharField(
         verbose_name='생성일',
         max_length=16,
+    )
+
+
+class StartUpPlace(models.Model):
+    class Meta:
+        verbose_name = '창업지원센터(공공데이터)'
+        verbose_name_plural = verbose_name
+
+    name = models.CharField(
+        verbose_name='이름',
+        max_length=128,
+    )
+    enterprise = models.CharField(
+        verbose_name='기업',
+        max_length=128,
+    )
+    address = models.CharField(
+        verbose_name='주소',
+        max_length=128,
+    )
+    tel = models.CharField(
+        verbose_name='연락처',
+        max_length=128,
+        null=True,
+        blank=True,
+    )
+    region = models.CharField(
+        verbose_name='지역',
+        max_length=32,
+        null=True,
+    )
+    latitude = models.FloatField(
+        verbose_name='위도',
+    )
+    longitude = models.FloatField(
+        verbose_name='경도',
     )
