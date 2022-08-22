@@ -7,10 +7,10 @@
 ### 서버 실행 명령어
 ```
 # 깃 허브에서 소스코드를 다운로드 받습니다.
-git clone git@github.com:kimja7045/software-engineering-server.git
+git clone git@github.com:kimja7045/startupInformation-django-server.git
 
 # 받은 프로젝트 폴더 경로로 이동합니다.
-software_engineering_server
+startupInformation-django-server
 
 # 프로젝트 내의 가상환경을 만들어줍니다.
 python -m venv venv
